@@ -1,6 +1,5 @@
-# Sales
+# Lemonade Stand
 
-# MyProject
 
 ## Overview
 
