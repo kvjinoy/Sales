@@ -3,7 +3,7 @@ using Sales.Service;
 using Sales.Service.Domain;
 
 
-namespace Sales.Server.Controllers
+namespace Sales.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +27,7 @@ namespace Sales.Server.Controllers
         [HttpPost]
         public void Post([FromBody] Product product)
         {
-             _productService.AddProduct(product);
+            _productService.AddProduct(product);
         }
 
         // PUT api/<ProductController>/5

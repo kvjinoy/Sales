@@ -4,7 +4,7 @@ import { SelectedProducts } from '../types/SelectedProducts';
 import { Customer } from '../types/Customer';
 import { OrderItem } from '../types/OrderItem';
 
-const HOST_API_URL = 'https://localhost:49163'; //TODO override with build/config
+const HOST_API_URL = 'https://localhost:49167'; //TODO override with build/config
 const API_ERROR = 'Network response was not ok';
 
 export const fetchProducts = async () => {

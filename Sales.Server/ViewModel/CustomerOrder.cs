@@ -1,6 +1,6 @@
 ﻿using Sales.Service.Domain;
 
-namespace Sales.Server.ViewModel
+namespace Sales.API.ViewModel
 {
     public class CustomerOrder
     {

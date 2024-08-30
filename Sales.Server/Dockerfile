@@ -16,18 +16,18 @@ RUN apt-get -y install nodejs
 FROM with-node AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Sales.Server/Sales.Server.csproj", "Sales.Server/"]
+COPY ["Sales.Server/Sales.API.csproj", "Sales.API/"]
 COPY ["sales.client/sales.client.esproj", "sales.client/"]
-RUN dotnet restore "./Sales.Server/Sales.Server.csproj"
+RUN dotnet restore "./Sales.Server/Sales.API.csproj"
 COPY . .
 WORKDIR "/src/Sales.Server"
-RUN dotnet build "./Sales.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Sales.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Sales.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Sales.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Sales.Server.dll"]
+ENTRYPOINT ["dotnet", "Sales.API.dll"]

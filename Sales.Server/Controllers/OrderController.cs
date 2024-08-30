@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Server.ViewModel;
+using Sales.API.ViewModel;
 using Sales.Service;
 using Sales.Service.Domain;
 
-namespace Sales.Server.Controllers
+namespace Sales.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +15,7 @@ namespace Sales.Server.Controllers
         {
             _orderService = orderService;
         }
-      
+
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
         public string Get(int id)
