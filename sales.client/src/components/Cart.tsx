@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { Product } from '../types/Product';
+import { SelectedProducts } from '../types/SelectedProducts';
+import  OrderSubmission  from './OrderSubmission'
 
 interface CartProps {
     products: Product[];
 }
 
-interface SelectedProducts {
-    [id: number]: {
-        product: Product;
-        quantity: number;
-    };
-}
 
 const Cart: React.FC<CartProps> = ({ products }) => {
     const [selectedProducts, setSelectedProducts] = useState<SelectedProducts>({});
@@ -114,7 +110,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                 </ul>
             </div>
 
-            {showOrder && <div> Order coming soon ... </div> }
+            {showOrder && <OrderSubmission selectedProducts={selectedProducts} /> }
 
         </div>
     );
