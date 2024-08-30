@@ -2,8 +2,9 @@
 
 import { SelectedProducts } from '../types/SelectedProducts';
 import { Customer } from '../types/Customer';
+import { OrderItem } from '../types/OrderItem';
 
-const HOST_API_URL = 'https://localhost:49159';
+const HOST_API_URL = 'https://localhost:49163'; //TODO override with build/config
 const API_ERROR = 'Network response was not ok';
 
 export const fetchProducts = async () => {
@@ -14,18 +15,33 @@ export const fetchProducts = async () => {
     return response.json();
 };
 
+export const fetchCustomerOrders = async () => {
+    const response = await fetch(`${HOST_API_URL}/api/Order`);
+    if (!response.ok) {
+        throw new Error(API_ERROR);
+    }
+    return response.json();
+};
+
+
 export const submitOrder = async (selectedProducts: SelectedProducts, customer: Customer) => {
 
+    const orderItems: OrderItem[] = [];
+    Object.values(selectedProducts).forEach(function (selectedProduct) {
+        const orderItem: OrderItem = { productId: selectedProduct.product.id, quantity: selectedProduct.quantity, price: selectedProduct.product.price  };
+        orderItems.push(orderItem);
+    });
 
-    const response = await fetch(`${HOST_API_URL}/api/Product`, {
+    const payload = { 'orderItems': orderItems, 'customer': customer };
+
+    window.console.log(JSON.stringify(payload));
+
+    const response = await fetch(`${HOST_API_URL}/api/Order`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'content-type': 'application/json'
         },
-        body: JSON.stringify({
-            selectedProducts,
-            customer,
-        }),
+        body: JSON.stringify(payload)
     });
 
     if (!response.ok) {

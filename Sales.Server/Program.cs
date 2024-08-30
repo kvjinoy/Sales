@@ -1,12 +1,10 @@
-using Microsoft.Extensions.Configuration;
 using Sales.Service;
-//using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
-var supportedOrigin = "https://localhost:5173";
+var supportedOrigins = "https://localhost:5173"; //todo override with config
 
 // Add services to the container.
 
@@ -22,7 +20,15 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins(supportedOrigin);
+                          policy.WithOrigins(supportedOrigins);
+                          policy.WithHeaders(new[] { "X-Requested-With, Content-Type, Accept, Origin, Authorization" });
+                          policy.WithMethods(new[] { "POST, GET, PUT, DELETE, OPTIONS" });
+                          //policy.AllowCredentials();
+                          policy.AllowAnyMethod();  
+                          policy.AllowAnyHeader();
+                          policy.AllowAnyOrigin();
+                          policy.SetIsOriginAllowedToAllowWildcardSubdomains();
+                          policy.SetPreflightMaxAge(TimeSpan.FromSeconds(600));
                       });
 });
 

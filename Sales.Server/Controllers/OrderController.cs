@@ -23,7 +23,7 @@ namespace Sales.Server.Controllers
             throw new NotImplementedException();
         }
 
-        // POST api/<OrderController>
+        // POST api/<OrderController> //
         [HttpPost]
         public void Post([FromBody] CustomerOrder customerOrder)
         {
@@ -39,7 +39,7 @@ namespace Sales.Server.Controllers
             return GetCustomerOrderData(orderdata);
         }
 
-        private IEnumerable<CustomerOrder> GetCustomerOrderData((IEnumerable<Customer> customers, IEnumerable<Order> orders, IEnumerable<OrderItem> orderItems) orderdata)
+        private IEnumerable<CustomerOrder> GetCustomerOrderData((IEnumerable<Customer> customers, IEnumerable<Order> orders, IEnumerable<OrderProduct> orderItems) orderdata)
         {
             var customerOrders = new List<CustomerOrder>();
             foreach (var order in orderdata.orders)

@@ -20,22 +20,22 @@ namespace Sales.Service
             _connection = connection;
             _customerService = customerService;
         }
-        public async Task<(IEnumerable<Customer>, IEnumerable<Order>, IEnumerable<OrderItem>)> GetAllOrders()
+        public async Task<(IEnumerable<Customer>, IEnumerable<Order>, IEnumerable<OrderProduct>)> GetAllOrders()
         {
                 using (var multi = await _connection.QueryMultipleAsync(@"
                     SELECT * FROM [dbo].[Customer];
                     SELECT * FROM [dbo].[Order];
-                    SELECT * FROM [dbo].[OrderItem];"))
+                    SELECT oi.*,p.Name FROM [dbo].[OrderItem] oi inner join [dbo].[Product] p on oi.ProductId = p.Id ;"))
                 {
                     var customers = await multi.ReadAsync<Customer>();
                     var orders = await multi.ReadAsync<Order>();
-                    var orderItems = await multi.ReadAsync<OrderItem>();
+                    var orderItems = await multi.ReadAsync<OrderProduct>();
 
                     return (customers, orders, orderItems);
                 }
         }
 
-        public void CreateOrder(Customer customer, IEnumerable<OrderItem> orderItems)
+        public void CreateOrder(Customer customer, IEnumerable<OrderProduct> orderItems)
         {
             //Trasactions
             _customerService.AddCustomer(customer);

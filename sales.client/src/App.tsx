@@ -1,12 +1,30 @@
-import CartContainer from './components/CartContainer';
+
 import './App.css';
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import CartContainer from './components/CartContainer';
+import CustomerOrders from './components/CustomerOrders';
+
+const App: React.FC = () => {
     return (
-        <div>
-            <h1 id="tabelLabel">Lemonade Stand</h1>
-            <CartContainer/>
-        </div>
+        <Router>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/cart">Cart</Link>
+                    </li>
+                    <li>
+                        <Link to="/orders">Orders</Link>
+                    </li>
+                </ul>
+            </nav>
+            <Routes>
+                <Route path="/" element={<CartContainer />} />
+                <Route path="/cart" element={<CartContainer />} />
+                <Route path="/orders" element={<CustomerOrders />} />
+            </Routes>
+        </Router>
     );
-}
+};
 
 export default App;
