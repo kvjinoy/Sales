@@ -19,11 +19,11 @@ The backend is an ASP.NET Core REST API that connects to an Azure SQL database. 
 
 ### Database Setup
 
-The SQL DDL is defined in a separate project. You can create the database schema by running the scripts in the `DatabaseScripts` project.
+The SQL DDL is defined in a separate project. You can create the database schema by running the scripts in the `SalesDatabase` project.
 
 ### Running the Backend
 
-Navigate to the `Backend` directory and run the following command to start the server:
+Navigate to the `Sales.Server` directory and run the following command to start the server:
 
 ```bash
 dotnet run
