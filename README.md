@@ -35,7 +35,7 @@ The frontend is a React application written in TypeScript. Vite is used as the J
 
 ### Running the Frontend
 
-Navigate to the `Frontend` directory and install the dependencies:
+Navigate to the `Sales.Client` directory and install the dependencies:
 
 ```bash
 npm install
