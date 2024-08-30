@@ -62,17 +62,17 @@ namespace Sales.Service
             foreach (var orderItem in orderItems)
             {
                 orderItem.OrderId = order.Id;
-                CreateOrderItem(order);
+                CreateOrderItem(orderItem);
             }
         }
 
-        private void CreateOrderItem(Order order)
+        private void CreateOrderItem(OrderItem orderItem)
         {
             var sql = @"INSERT INTO [dbo].[OrderItem]
            ([OrderId],[ProductId],[Quantity] ,[Price]) VALUES
            (@OrderId,@ProductId,@Quantity,@Price)";
 
-            _connection.Execute(sql, order);
+            _connection.Execute(sql, orderItem);
         }
     }
 }
