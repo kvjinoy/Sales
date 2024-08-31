@@ -59,6 +59,7 @@ const CustomerOrders: React.FC = () => {
 
     function customerOrder(index: number, order: CustomerOrder) {
         return <div key={index}>
+            <p>Order Number: {order.orderId}</p>
             <h2>Customer: {order.customer.firstName + ' ' + order.customer.lastName}</h2>
             <p>Email: {order.customer.email}</p>
             <p>Phone: {order.customer.phone}</p>

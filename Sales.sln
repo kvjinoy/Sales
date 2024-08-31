@@ -11,7 +11,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sales.Database", "SalesData
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Service", "Sales.Service\Sales.Service.csproj", "{55F2A759-3011-4893-9AC7-5C9BB15C2CE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.API.Test", "Sales.Server.Test\Sales.API.Test.csproj", "{7B31E27C-3220-424B-A835-E951CFC499E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.API.Test", "Sales.Server.Test\Sales.API.Test.csproj", "{7B31E27C-3220-424B-A835-E951CFC499E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Service.Tests", "Sales.Service.Tests\Sales.Service.Tests.csproj", "{AAA1424D-57D2-4751-B7FE-0385F4F342BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{7B31E27C-3220-424B-A835-E951CFC499E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B31E27C-3220-424B-A835-E951CFC499E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B31E27C-3220-424B-A835-E951CFC499E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA1424D-57D2-4751-B7FE-0385F4F342BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA1424D-57D2-4751-B7FE-0385F4F342BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA1424D-57D2-4751-B7FE-0385F4F342BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA1424D-57D2-4751-B7FE-0385F4F342BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

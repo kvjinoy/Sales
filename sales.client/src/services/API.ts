@@ -28,7 +28,7 @@ export const submitOrder = async (selectedProducts: SelectedProducts, customer: 
 
     const orderItems: OrderItem[] = [];
     Object.values(selectedProducts).forEach(function (selectedProduct) {
-        const orderItem: OrderItem = { productId: selectedProduct.product.id, quantity: selectedProduct.quantity, price: selectedProduct.product.price  };
+        const orderItem: OrderItem = { productId: selectedProduct.product.id, quantity: selectedProduct.quantity, price: selectedProduct.product.price,name:''  };
         orderItems.push(orderItem);
     });
 
