@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Product } from '../types/Product';
 import { SelectedProducts } from '../types/SelectedProducts';
-import  OrderSubmission  from './OrderSubmission'
+import OrderSubmission from './OrderSubmission'
 
 interface CartProps {
     products: Product[];
@@ -10,7 +10,7 @@ interface CartProps {
 
 const Cart: React.FC<CartProps> = ({ products }) => {
     const [selectedProducts, setSelectedProducts] = useState<SelectedProducts>({});
-    const [showOrder, setOrderStatus] = useState(false);
+    const [showOrderSubmission, setOrderSubmissionStatus] = useState(false);
 
     const handleIncrementProduct = (product: Product) => {
         setSelectedProducts(prevState => ({
@@ -59,60 +59,60 @@ const Cart: React.FC<CartProps> = ({ products }) => {
             total = total + (product.price * quantity)
         ));
         return total;
-    }; 
+    };
 
     const handleOrderClick = () => {
         if (getGrandTotal() > 0) {
-            setOrderStatus(true);
+            setOrderSubmissionStatus(true);
         }
     };
 
     return (
-        <div>
-        <div>
-            <h1>Product List</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Price</th>
-                        <th>Quantity</th>   
-                        <th>Total</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map((product) => (
-                        <tr key={product.id}>
-                            <td>{product.name}
-                                {product.type}
-                            </td>
-                            <td>${product.price}</td>
-                            <td>
-                                <button onClick={() => handleIncrementProduct(product)}>+</button>
-                                ${getSelectedQuantity(product)}
-                                <button onClick={() => handleDecrementProduct(product)}>-</button>
-                            </td>
-                            <td>${getSelectedProductPrice(product)}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            </div>
+        <>
+            {
+                !showOrderSubmission && <>
+                <div>
+                    <h1>Select Item</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products.map((product) => (
+                                <tr key={product.id}>
+                                    <td>{product.name}
+                                        <span className="product-type">{product.type}</span>
+                                    </td>
+                                    <td>${product.price}</td>
+                                    <td>
+                                        <button onClick={() => handleIncrementProduct(product)}>+</button>
+                                        ${getSelectedQuantity(product)}
+                                        <button onClick={() => handleDecrementProduct(product)}>-</button>
+                                    </td>
+                                    <td>${getSelectedProductPrice(product)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
 
-            <div>
-                <h3>Grand Total: {getGrandTotal()}</h3>
-                <button onClick={() => handleOrderClick() }>Order Now</button>
-                <ul>
-                    {Object.values(selectedProducts).map(({ product, quantity }) => (
-                        <li key={product.id}>{product.name} - ${product.price} x {quantity}</li>
-                    ))}
-                </ul>
-            </div>
+                <div>
+                    <h3>Grand Total: {getGrandTotal()}</h3>
+                    <button onClick={() => handleOrderClick()}>Order Now</button>
+                </div>
 
-            {showOrder && <OrderSubmission selectedProducts={selectedProducts} /> }
+                </>
+            }
 
-        </div>
+            {showOrderSubmission && <OrderSubmission selectedProducts={selectedProducts} />}
+
+        </>
     );
 };
 

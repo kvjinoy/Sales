@@ -8,7 +8,7 @@ import CustomerOrders from './components/CustomerOrders';
 const App: React.FC = () => {
     return (
         <Router>
-            <nav>
+            <nav id="menu">
                 <ul>
                     <li>
                         <Link to="/cart">Cart</Link>
