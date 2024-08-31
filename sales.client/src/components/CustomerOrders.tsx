@@ -31,26 +31,55 @@ const CustomerOrders: React.FC = () => {
         return <div>Error: {error}</div>;
     }
 
+    const getSalesTotal = (customerOrders: CustomerOrder[]) => {
+        let total = 0;
+        customerOrders.map((customerOrder) => (
+            total = total + getCustomerOrderTotal(customerOrder)
+        ));
+        return total;
+    };
+
+    const getCustomerOrderTotal = (customerOrder: CustomerOrder) => {
+        let total = 0;
+        customerOrder.orderItems.map(( orderItem ) => (
+            total = total + (orderItem.price * orderItem.quantity)
+        ));
+        return total;
+    };
+
     return (
         <div>
             <h1>Customer Orders</h1>
             {orders.map((order, index) => (
-                <div key={index}>
-                    <h2>Customer: {order.customer.firstName + ' ' + order.customer.lastName}</h2>
-                    <p>Email: {order.customer.email}</p>
-                    <p>Phone: {order.customer.phone}</p>
-                    <h3>Ordered Products:</h3>
-                    <ul>
-                        {order.orderItems.map((item, index) => (
-                            <li key={index}>
-                                {item.name} - ${item.price} x {item.quantity}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                customerOrder(index, order)
             ))}
+            <h3>Total: {getSalesTotal(orders)}</h3>
         </div>
     );
+
+    function customerOrder(index: number, order: CustomerOrder) {
+        return <div key={index}>
+            <h2>Customer: {order.customer.firstName + ' ' + order.customer.lastName}</h2>
+            <p>Email: {order.customer.email}</p>
+            <p>Phone: {order.customer.phone}</p>
+            <h3>Ordered Products:</h3>
+            {orderDetails(order)}
+            <p>Total: {getCustomerOrderTotal(order)}</p>
+            <hr />
+        </div>;
+    }
+
+    function orderDetails(order: CustomerOrder) {
+        return <table>
+            {order.orderItems.map((item, index) => (
+                <tr key={index}>
+                    {item.name} - ${item.price * item.quantity}
+                </tr>
+            ))}
+        </table>;
+    }
 };
 
 export default CustomerOrders;
+
+
