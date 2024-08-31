@@ -1,15 +1,17 @@
-# Lemonade Stand
+# LemonadeStand
 
 
 ## Overview
 
-This project is a full-stack application that uses Azure SQL as the backend database, an ASP.NET Core REST API for the server-side logic, and a React application with TypeScript for the frontend. Dapper, a micro ORM, is used for handling database operations. The SQL DDL is defined in a separate project to separate concerns. Vite is used as the JavaScript build server.
+This project is a full-stack application that uses Azure SQL as the backend database, an ASP.NET Core REST API for the server-side logic, and a React application with TypeScript for the frontend. 
+
+Dapper, a micro ORM, is used for handling database operations. The SQL DDL is defined in a separate project to separate concerns. Vite is used as the JavaScript build tool.
 
 ## Prerequisites
 
 - .NET 8.0 or later
 - Node.js 22.5.1 or later
-- Azure SQL Database
+- Azure SQL/ SQL Database
 - Vite 5.4.1 or later
 - react 18.3.1
 
