@@ -16,28 +16,28 @@ namespace Sales.API.Controllers
             _productService = productService;
         }
 
-        // GET: api/<ProductController>
+
         [HttpGet]
         public async Task<IEnumerable<Product>> Get()
         {
             return await _productService.GetProducts();
         }
 
-        // POST api/<ProductController>
+
         [HttpPost]
         public void Post([FromBody] Product product)
         {
             _productService.AddProduct(product);
         }
 
-        // PUT api/<ProductController>/5
+
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Product product)
         {
             throw new NotImplementedException();
         }
 
-        // DELETE api/<ProductController>/5
+
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

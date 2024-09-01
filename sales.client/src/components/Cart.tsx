@@ -7,7 +7,6 @@ interface CartProps {
     products: Product[];
 }
 
-
 const Cart: React.FC<CartProps> = ({ products }) => {
     const [selectedProducts, setSelectedProducts] = useState<SelectedProducts>({});
     const [showOrderSubmission, setOrderSubmissionStatus] = useState(false);
@@ -68,51 +67,50 @@ const Cart: React.FC<CartProps> = ({ products }) => {
     };
 
     return (
-        <>
+        <div className="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
             {
-                !showOrderSubmission && <>
-                <div>
-                    <h1>Select Item</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {products.map((product) => (
-                                <tr key={product.id}>
-                                    <td>{product.name}
-                                        <span className="product-type">{product.type}</span>
-                                    </td>
-                                    <td>${product.price}</td>
-                                    <td>
-                                        <button onClick={() => handleIncrementProduct(product)}>+</button>
-                                        ${getSelectedQuantity(product)}
-                                        <button onClick={() => handleDecrementProduct(product)}>-</button>
-                                    </td>
-                                    <td>${getSelectedProductPrice(product)}
-                                    </td>
+                !showOrderSubmission && <div className="card">
+                    <h3 className="card-header">Shopping Cart</h3>
+                    <div className="card-body">
+                        <table className="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {products.map((product) => (
+                                    <tr key={product.id}>
+                                        <td>{product.name}
+                                            <span className="badge text-bg-primary rounded-pill">{product.type}</span>
+                                        </td>
+                                        <td>${product.price}</td>
+                                        <td>
+                                            <button onClick={() => handleIncrementProduct(product)}>+</button>
+                                            ${getSelectedQuantity(product)}
+                                            <button onClick={() => handleDecrementProduct(product)}>-</button>
+                                        </td>
+                                        <td>${getSelectedProductPrice(product)}
+                                        </td>
+                                    </tr>
+                                ))}
+                                <tr className="table-group-divider"><td colSpan={3}><p className="fw-bold">Grand Total:</p></td><td><p className="fw-bold">${getGrandTotal()}</p></td></tr>
+                            </tbody>
+                        </table>
 
-                <div>
-                    <h3>Grand Total: {getGrandTotal()}</h3>
-                    <button onClick={() => handleOrderClick()}>Order Now</button>
+                        <div className="card-footer">
+                            <button onClick={() => handleOrderClick()} className=" btn btn-primary">Order Now</button>
+                        </div>
+                    </div>
                 </div>
-
-                </>
             }
 
             {showOrderSubmission && <OrderSubmission selectedProducts={selectedProducts} />}
 
-        </>
+        </div>
     );
 };
 

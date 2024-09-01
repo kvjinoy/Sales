@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SelectedProducts } from '../types/SelectedProducts';
 import { Customer } from '../types/Customer';
+import { Order } from '../types/Order';
 import { submitOrder } from '../services/API';
 
 interface OrderSubmissionProps {
@@ -10,7 +11,12 @@ interface OrderSubmissionProps {
 const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
+    const [orderSuccess, setOrderSuccess] = useState(false);
+    const [order, setOrder] = useState<Order>({
+        id: 0,
+        customerId: 0,
+        date: new Date()
+    });
     const [customer, setCustomer] = useState<Customer>({
         firstName: '',
         lastName: '',
@@ -31,9 +37,10 @@ const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) =
 
         try {
 
-            submitOrder(selectedProducts, customer);
+            const orderResponse = await submitOrder(selectedProducts, customer);
+            setOrder(orderResponse);
             setLoading(false);
-            setSuccess(true);
+            setOrderSuccess(true);
         } catch (error) {
             window.console.log(error)
             setError(null);
@@ -41,17 +48,34 @@ const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) =
         }
     };
 
+    const getOrderTotal = () => {
+        const discount = 0;
+        let total = 0;
+        Object.values(selectedProducts).map(({ product, quantity }) => (
+            total = total + (product.price * quantity)
+        ));
+        return total - discount;
+    };
+
     if (loading) {
-        return <div>Submitting...</div>;
+        return <div className="spinner-border" role="status">   <span className="visually-hidden">Loading...</span> Submitting...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div> <p className="text-danger"> Error: {error}</p></div>;
     }
 
-    if (success) {
-        return <div>Order submitted successfully!</div>;
+    if (orderSuccess) {
+        return <div className="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            {orderedItems()}
+            <p className="text-success-emphasis">
+                Order submitted successfully!
+                <span className="badge text-bg-primary rounded-pill">Your Order Number: {order.id}</span>
+            </p>
+        </div>;
     }
+
+
 
     return (
 
@@ -62,37 +86,44 @@ const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) =
     );
 
     function orderedItems() {
-        return <div>
-            <h2>Selected Items</h2>
-            <ul>
+        return <div className="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <h2 className="h2">Your Items</h2>
+            <ul className="list-group">
                 {Object.values(selectedProducts).map(({ product, quantity }) => (
-                    <li key={product.id}>{product.name} - ${product.price} x {quantity}</li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center" key={product.id}>
+                        {product.name} - {product.type}
+                        <span className="badge text-bg-primary rounded-pill">  ${product.price} x {quantity}</span>
+                    </li>
                 ))}
             </ul>
+            <h4 className="h3">Order Total: ${getOrderTotal()} </h4>
         </div>;
     }
 
     function customerInfo() {
-        return <div>
-            <h2>Enter customer details</h2>
+        return <div className="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <h2 className="h2">Enter your details</h2>
             <form onSubmit={handleSubmit}>
-                <label className="form-label">
-                    First Name:
-                    <input className="form-input" type="text" name="firstName" value={customer.firstName} onChange={handleInputChange} required />
-                </label>
-                <label className="form-label">
-                    Last Name:
-                    <input className="form-input" type="text" name="lastName" value={customer.lastName} onChange={handleInputChange} required />
-                </label>
-                <label className="form-label">
-                    Email:
-                    <input className="form-input" type="email" name="email" value={customer.email} onChange={handleInputChange} required />
-                </label>
-                <label className="form-label">
-                    Phone:
-                    <input className="form-input" type="text" name="phone" value={customer.phone} onChange={handleInputChange} required />
-                </label>
-                <button type="submit">Submit Order</button>
+                <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input className="form-control" type="text" name="firstName" value={customer.firstName} onChange={handleInputChange} required />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Last Name:</label>
+                    <input className="form-control" type="text" name="lastName" value={customer.lastName} onChange={handleInputChange} required />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Email: </label>
+                    <input className="form-control" type="email" name="email" value={customer.email} onChange={handleInputChange} required />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Phone:  </label>
+                    <input className="form-control" type="text" name="phone" value={customer.phone} onChange={handleInputChange} required />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit Order</button>
             </form>
         </div>;
     }

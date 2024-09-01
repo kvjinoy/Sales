@@ -25,7 +25,7 @@ namespace Sales.Service
                 using (var multi = await _connection.QueryMultipleAsync(@"
                     SELECT * FROM [dbo].[Customer];
                     SELECT * FROM [dbo].[Order];
-                    SELECT oi.*,p.Name FROM [dbo].[OrderItem] oi inner join [dbo].[Product] p on oi.ProductId = p.Id ;"))
+                    SELECT oi.*, p.Name + '-' + p.Type AS Name FROM [dbo].[OrderItem] oi inner join [dbo].[Product] p on oi.ProductId = p.Id ;"))
                 {
                     var customers = await multi.ReadAsync<Customer>();
                     var orders = await multi.ReadAsync<Order>();
@@ -35,12 +35,13 @@ namespace Sales.Service
                 }
         }
 
-        public void CreateOrder(Customer customer, IEnumerable<OrderProduct> orderItems)
+        public Order CreateOrder(Customer customer, IEnumerable<OrderProduct> orderItems)
         {
-            //Trasactions
+
             _customerService.AddCustomer(customer);
             var order = CreateOrderEntry(customer);
             CreateOrderItems(order, orderItems);
+            return order;
         }
 
         private Order CreateOrderEntry(Customer customer)

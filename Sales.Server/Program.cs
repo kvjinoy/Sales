@@ -23,10 +23,9 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins(supportedOrigins);
                           policy.WithHeaders(new[] { "X-Requested-With, Content-Type, Accept, Origin, Authorization" });
                           policy.WithMethods(new[] { "POST, GET, PUT, DELETE, OPTIONS" });
-                          //policy.AllowCredentials();
                           policy.AllowAnyMethod();  
                           policy.AllowAnyHeader();
-                          policy.AllowAnyOrigin();
+                       //   policy.AllowAnyOrigin();
                           policy.SetIsOriginAllowedToAllowWildcardSubdomains();
                           policy.SetPreflightMaxAge(TimeSpan.FromSeconds(600));
                       });

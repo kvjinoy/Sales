@@ -8,15 +8,17 @@ import CustomerOrders from './components/CustomerOrders';
 const App: React.FC = () => {
     return (
         <Router>
-            <nav id="menu">
-                <ul>
-                    <li>
-                        <Link to="/cart">Cart</Link>
-                    </li>
-                    <li>
-                        <Link to="/orders">Orders</Link>
-                    </li>
-                </ul>
+            <nav id="menu" className="navbar bg-primary fixed-top bg-body-tertiary" style={{ backgroundColor: "#e3f2fd" }}>
+                <div className="container-fluid">
+                    <ul className="nav nav-underline">
+                        <li className="nav-item">
+                            <Link to="/cart" className="nav-link" >Cart</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/orders" className="nav-link">Orders</Link>
+                        </li>
+                    </ul>
+                </div>
             </nav>
             <Routes>
                 <Route path="/" element={<CartContainer />} />

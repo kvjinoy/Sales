@@ -48,4 +48,5 @@ export const submitOrder = async (selectedProducts: SelectedProducts, customer: 
         throw new Error('Network response was not ok');
     }
 
+    return response.json();
 };

@@ -16,22 +16,21 @@ namespace Sales.API.Controllers
             _orderService = orderService;
         }
 
-        // GET api/<OrderController>/5
+
         [HttpGet("{id}")]
         public string Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        // POST api/<OrderController> //
         [HttpPost]
-        public void Post([FromBody] CustomerOrder customerOrder)
+        public Order Post([FromBody] CustomerOrder customerOrder)
         {
-            _orderService.CreateOrder(customerOrder.Customer, customerOrder.OrderItems);
+           var order =  _orderService.CreateOrder(customerOrder.Customer, customerOrder.OrderItems);
+           return order;
         }
 
 
-        // GET: api/<OrderController>
         [HttpGet]
         public async Task<IEnumerable<CustomerOrder>> Get()
         {
