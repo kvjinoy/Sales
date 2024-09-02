@@ -3,6 +3,7 @@ import { SelectedProducts } from '../types/SelectedProducts';
 import { Customer } from '../types/Customer';
 import { Order } from '../types/Order';
 import { submitOrder } from '../services/API';
+import CustomerInfo from './CustomerInfo';
 
 interface OrderSubmissionProps {
     selectedProducts: SelectedProducts;
@@ -17,22 +18,9 @@ const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) =
         customerId: 0,
         date: new Date()
     });
-    const [customer, setCustomer] = useState<Customer>({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: ''
-    });
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCustomer({
-            ...customer,
-            [event.target.name]: event.target.value,
-        });
-    };
+    const handleOrderSubmit = async (customer: Customer) => {
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
         setLoading(true);
 
         try {
@@ -76,12 +64,11 @@ const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) =
     }
 
 
-
     return (
 
         <>
             {orderedItems()}
-            {customerInfo()}
+            <CustomerInfo handleOrderSubmit={handleOrderSubmit} />
         </>
     );
 
@@ -100,33 +87,6 @@ const OrderSubmission: React.FC<OrderSubmissionProps> = ({ selectedProducts }) =
         </div>;
     }
 
-    function customerInfo() {
-        return <div className="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-            <h2 className="h2">Enter your details</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label">First Name:</label>
-                    <input className="form-control" type="text" name="firstName" value={customer.firstName} onChange={handleInputChange} required />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">
-                        Last Name:</label>
-                    <input className="form-control" type="text" name="lastName" value={customer.lastName} onChange={handleInputChange} required />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">
-                        Email: </label>
-                    <input className="form-control" type="email" name="email" value={customer.email} onChange={handleInputChange} required />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">
-                        Phone:  </label>
-                    <input className="form-control" type="text" name="phone" value={customer.phone} onChange={handleInputChange} required />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit Order</button>
-            </form>
-        </div>;
-    }
 };
 
 export default OrderSubmission;

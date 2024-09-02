@@ -9,7 +9,7 @@ namespace Sales.Service
 {
     public interface IOrderService
     {
-        Order CreateOrder(Customer customer, IEnumerable<OrderProduct> orderItems);
-        Task<(IEnumerable<Customer> customers, IEnumerable<Order> orders, IEnumerable<OrderProduct> orderItems)> GetAllOrders();
+        Order CreateOrder(Customer customer, IEnumerable<OrderItem> orderItems);
+        Task<(IEnumerable<Customer> customers, IEnumerable<Order> orders, IEnumerable<OrderItem> orderItems)> GetAllOrders();
     }
 }

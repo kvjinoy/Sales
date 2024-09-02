@@ -38,7 +38,7 @@ namespace Sales.API.Controllers
             return GetCustomerOrderData(orderdata);
         }
 
-        private IEnumerable<CustomerOrder> GetCustomerOrderData((IEnumerable<Customer> customers, IEnumerable<Order> orders, IEnumerable<OrderProduct> orderItems) orderdata)
+        private IEnumerable<CustomerOrder> GetCustomerOrderData((IEnumerable<Customer> customers, IEnumerable<Order> orders, IEnumerable<OrderItem> orderItems) orderdata)
         {
             var customerOrders = new List<CustomerOrder>();
             foreach (var order in orderdata.orders)

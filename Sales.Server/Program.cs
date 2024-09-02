@@ -25,7 +25,6 @@ builder.Services.AddCors(options =>
                           policy.WithMethods(new[] { "POST, GET, PUT, DELETE, OPTIONS" });
                           policy.AllowAnyMethod();  
                           policy.AllowAnyHeader();
-                       //   policy.AllowAnyOrigin();
                           policy.SetIsOriginAllowedToAllowWildcardSubdomains();
                           policy.SetPreflightMaxAge(TimeSpan.FromSeconds(600));
                       });

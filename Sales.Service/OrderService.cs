@@ -20,7 +20,7 @@ namespace Sales.Service
             _connection = connection;
             _customerService = customerService;
         }
-        public async Task<(IEnumerable<Customer>, IEnumerable<Order>, IEnumerable<OrderProduct>)> GetAllOrders()
+        public async Task<(IEnumerable<Customer>, IEnumerable<Order>, IEnumerable<OrderItem>)> GetAllOrders()
         {
                 using (var multi = await _connection.QueryMultipleAsync(@"
                     SELECT * FROM [dbo].[Customer];
@@ -29,13 +29,13 @@ namespace Sales.Service
                 {
                     var customers = await multi.ReadAsync<Customer>();
                     var orders = await multi.ReadAsync<Order>();
-                    var orderItems = await multi.ReadAsync<OrderProduct>();
+                    var orderItems = await multi.ReadAsync<OrderItem>();
 
                     return (customers, orders, orderItems);
                 }
         }
 
-        public Order CreateOrder(Customer customer, IEnumerable<OrderProduct> orderItems)
+        public Order CreateOrder(Customer customer, IEnumerable<OrderItem> orderItems)
         {
 
             _customerService.AddCustomer(customer);

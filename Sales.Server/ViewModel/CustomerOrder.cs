@@ -7,7 +7,7 @@ namespace Sales.API.ViewModel
         public int OrderId { get; set; }
         public DateTime? OrderDate { get; set; }
         public required Customer Customer { get; set; }
-        public required IEnumerable<OrderProduct> OrderItems { get; set; }
+        public required IEnumerable<OrderItem> OrderItems { get; set; }
         public double Total { get; set; }
     }
 }

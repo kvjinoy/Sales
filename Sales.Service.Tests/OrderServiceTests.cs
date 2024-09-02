@@ -27,10 +27,10 @@ namespace Sales.Service.Tests
         {
 
             var customer = new Customer { Id = 1, FirstName="First", LastName="Last" };
-            var orderItems = new List<OrderProduct>
+            var orderItems = new List<OrderItem>
             {
-                new OrderProduct { OrderId = 1, ProductId = 1, Quantity = 1, Price = 10},
-                new OrderProduct { OrderId = 2, ProductId = 2, Quantity = 2, Price = 20 }
+                new OrderItem { OrderId = 1, ProductId = 1, Quantity = 1, Price = 10},
+                new OrderItem { OrderId = 2, ProductId = 2, Quantity = 2, Price = 20 }
             };
 
             _orderService.CreateOrder(customer, orderItems);

@@ -26,7 +26,7 @@ namespace Sales.API.Test
 
             var customerOrder = new CustomerOrder() 
             {   Customer=new Customer() { FirstName = "First", LastName="Last"},
-                OrderItems = new List<OrderProduct>()
+                OrderItems = new List<OrderItem>()
             };
 
             _orderController.Post(customerOrder);
@@ -40,7 +40,7 @@ namespace Sales.API.Test
 
             var customers = new List<Customer>();
             var orders = new List<Order>();
-            var orderItems = new List<OrderProduct>();
+            var orderItems = new List<OrderItem>();
             _orderServiceMock.Setup(service => service.GetAllOrders()).ReturnsAsync((customers, orders, orderItems));
 
             var result = await _orderController.Get();
