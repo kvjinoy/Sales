@@ -7,6 +7,8 @@ This project is a full-stack application that uses Azure SQL as the backend data
 
 Dapper, a micro ORM, is used for handling database operations. The SQL DDL is defined in a separate project to separate concerns. Vite is used as the JavaScript build tool.
 
+Current state - Sequence diagram : https://github.com/kvjinoy/Sales/blob/master/Sequence%20%20Diagram.png
+
 ## Prerequisites
 
 - .NET 8.0 or later
