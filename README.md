@@ -1,4 +1,4 @@
-# LemonadeStand
+# POS
 
 
 ## Overview
